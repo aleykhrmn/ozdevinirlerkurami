@@ -1,0 +1,51 @@
+def check_syntax(expression):
+    # Özdevinir modelin durumlarını tanımla
+    states = {
+        'Start': {'Number': 'Number', 'Parenthesis': 'Parenthesis', 'Error': 'Error'},
+        'Number': {'Number': 'Number', 'Operator': 'Operator', 'Parenthesis': 'Parenthesis', 'Error': 'Error'},
+        'Operator': {'Number': 'Number', 'Parenthesis': 'Parenthesis', 'Error': 'Error'},
+        'Parenthesis': {'Number': 'Number', 'Operator': 'Operator', 'Parenthesis': 'Parenthesis', 'Error': 'Error'},
+        'Error': {'Error': 'Error'}
+    }
+
+    current_state = 'Start'  # Başlangıç durumu
+    stack = []  # Parantezlerin eşleşmesini kontrol etmek için kullanılan yığın
+
+    for char in expression:
+        if char.isdigit():
+            next_state = states[current_state]['Number']
+        elif char in ['+', '-', '*', '/']:
+            next_state = states[current_state]['Operator']
+        elif char == '(':
+            next_state = states[current_state]['Parenthesis']
+            stack.append('(')
+        elif char == ')':
+            if len(stack) > 0 and stack[-1] == '(':
+                stack.pop()
+                next_state = states[current_state]['Parenthesis']
+            else:
+                next_state = states[current_state]['Error']
+        else:
+            next_state = states[current_state]['Error']
+
+        current_state = next_state
+
+        if current_state == 'Error':
+            break
+
+    if current_state == 'Number' and len(stack) == 0:
+        return "doğru sözdizimi"
+    else:
+        return "yanlış sözdizimi"
+
+# Testler
+expressions = [
+    "(3 + 3 ) * 3",
+    "(3 + 3 ( * 3.",
+    "3 / 2 * 5 + 1 - 6",
+    "3 / 2 * 5 + 1 - 6 +"
+]
+
+for expression in expressions:
+    result = check_syntax(expression)
+    print(f"Girdi: {expression} için\t\tÇıktı: {result}")
