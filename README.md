@@ -1,5 +1,4 @@
-# Welcome to GitHub Desktop!
+# Özdevinirler Dersi Projeleri
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
+Bu repo, üniversitedeki özdevinirler (autonomous systems) dersi kapsamında verilen projeleri içermektedir. Her proje, otonom sistemler ve ilgili teknolojilerle ilgili farklı kavramları ve teknikleri uygulamayı amaçlamaktadır.
 
-Write your name on line 6, save it, and then head back to GitHub Desktop.
